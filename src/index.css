@@ -1,0 +1,195 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --bg-app: #f0f2f5;
+  --bg-sidebar: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8f9fb;
+  --bg-input: #f0f2f5;
+  --bg-badge: #e8eaf0;
+
+  --text-primary: #0d0f12;
+  --text-secondary: #5a6070;
+  --text-muted: #9aa0b0;
+  --text-on-accent: #ffffff;
+
+  --accent: #4f6ef7;
+  --accent-hover: #3a57e8;
+  --accent-soft: #eef1fe;
+  --accent-border: #c5cffb;
+
+  --success: #22c55e;
+  --success-soft: #e8faf0;
+  --warning: #f59e0b;
+  --warning-soft: #fef6e4;
+  --danger: #ef4444;
+  --danger-soft: #fef2f2;
+
+  --border: #e4e7ed;
+  --border-strong: #cdd0d8;
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --sidebar-width: 240px;
+  --header-height: 56px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+
+  --content-max: 1600px;
+}
+
+[data-theme="dark"] {
+  --bg-app: #0d0f14;
+  --bg-sidebar: #13161e;
+  --bg-card: #1a1d27;
+  --bg-card-hover: #1f2330;
+  --bg-input: #13161e;
+  --bg-badge: #1f2330;
+
+  --text-primary: #eef0f5;
+  --text-secondary: #8892a4;
+  --text-muted: #555e70;
+  --text-on-accent: #ffffff;
+
+  --accent: #6b84f8;
+  --accent-hover: #7f96fa;
+  --accent-soft: #1a2040;
+  --accent-border: #2d3a70;
+
+  --success: #34d974;
+  --success-soft: #0d2a1a;
+  --warning: #fbbf24;
+  --warning-soft: #2a1e08;
+  --danger: #f87171;
+  --danger-soft: #2a0f0f;
+
+  --border: #242838;
+  --border-strong: #303548;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: var(--font-body);
+  background: var(--bg-app);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input, textarea, select {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted);
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+* { transition: background-color 0.2s, border-color 0.2s, color 0.15s; }
+
+/* Responsive layout */
+.main-content {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  padding: 28px 40px;
+  width: calc(100% - var(--sidebar-width));
+  max-width: var(--content-max);
+}
+
+@media (max-width: 1400px) {
+  .main-content { padding: 24px 32px; }
+}
+
+@media (max-width: 1100px) {
+  .main-content { padding: 20px 24px; }
+  :root { --sidebar-width: 200px; }
+}
+
+@media (max-width: 800px) {
+  :root { --sidebar-width: 0px; }
+  .main-content { margin-left: 0; padding: 16px; width: 100%; }
+}
+
+/* Responsive grid helpers */
+.grid-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.grid-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+.grid-sidebar-right { display: grid; grid-template-columns: 1fr 300px; gap: 18px; }
+.grid-sidebar-left { display: grid; grid-template-columns: 260px 1fr; gap: 18px; }
+
+@media (max-width: 1200px) {
+  .grid-3col { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .grid-2col, .grid-3col, .grid-sidebar-right, .grid-sidebar-left { grid-template-columns: 1fr; }
+}
+
+/* react-grid-layout resize handle */
+.react-resizable-handle {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.react-grid-item:hover .react-resizable-handle,
+.react-grid-item.react-grid-placeholder ~ .react-resizable-handle {
+  opacity: 1;
+}
+.react-resizable-handle-se {
+  width: 20px !important;
+  height: 20px !important;
+  background-image: none !important;
+  background-color: var(--accent) !important;
+  border-radius: 0 0 var(--radius) 0;
+  right: 0 !important;
+  bottom: 0 !important;
+  cursor: se-resize;
+  z-index: 10;
+}
+.react-resizable-handle-se::after {
+  content: '⤡';
+  color: #fff;
+  font-size: 11px;
+  position: absolute;
+  right: 3px;
+  bottom: 2px;
+  line-height: 1;
+}
+.react-grid-item.react-grid-placeholder {
+  background: var(--accent) !important;
+  opacity: 0.15 !important;
+  border-radius: var(--radius) !important;
+}
+.react-grid-item > .react-resizable-handle::after {
+  display: none;
+}
